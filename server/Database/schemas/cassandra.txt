@@ -1,0 +1,52 @@
+CREATE KEYSPACE products
+
+CREATE TYPE products.features (
+  key text,
+  value text
+)
+
+CREATE TYPE products.photos (
+  thumbnail_url text,
+  url text,
+)
+
+CREATE TYPE products.sku_data (
+  quantity int,
+  size text,
+)
+
+CREATE TYPE products.sku_id (
+  sku_id map<FROZEN<sku_data>>
+)
+
+CREATE TYPE products.sku (
+  skus map<FROZEN<sku_type>>,
+)
+
+CREATE TABLE products.results (
+  product_id,
+  style_id int,
+  name text,
+  original_price text,
+  sale_price text,
+  default? int,
+  photos list<FROZEN<photos>>,
+  skus list<FROZEN<skus>>,
+  PRIMARY KEY(style_id);
+)
+
+CREATE TABLE products.styles (
+  product_id int ,
+  results list<FROZEN<results>>
+  PRIMARY KEY(product_id)
+)
+
+CREATE TABLE products.primaryInfo (
+  id int,
+  name text,
+  description text,
+  category text,
+  default_price int,
+  features list<FROZEN<features>>,
+  PRIMARY KEY(id);
+)
