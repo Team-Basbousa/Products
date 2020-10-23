@@ -73,7 +73,7 @@ var styleQuery = function(styleId, callback) {
         for (let i = 0; i < results.length; i++) {
           url = {};
           url.thumbnail_url = results[i].thumbnail_url;
-          url.url = results[i].image_url;
+          url.url = results[i].image_url || results[i].thumbnail_url;
           photos.push(url)
         }
         callback(null, photos)
